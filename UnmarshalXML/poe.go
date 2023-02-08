@@ -5,14 +5,15 @@ import (
 	"bytes"
 	"encoding/xml"
 	"fmt"
-	"golang.org/x/text/encoding/ianaindex"
-	"golang.org/x/text/encoding/unicode"
-	"golang.org/x/text/transform"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+
+	"golang.org/x/text/encoding/ianaindex"
+	"golang.org/x/text/encoding/unicode"
+	"golang.org/x/text/transform"
 )
 
 func readXMLFile(path string) (*os.File, error) {
