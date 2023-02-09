@@ -1,7 +1,7 @@
 package main
 
 import (
-	poe "Hello/UnmarshalXML"
+	api "Hello/api"
 	es "Hello/error"
 	chat "Hello/room"
 	"github.com/gin-gonic/gin"
@@ -9,7 +9,10 @@ import (
 )
 
 func main() {
-	poe.ParseXML()
+	//poe.ParseXML()
+	api.TestSwitch()
+	api.Test_printChanNums()
+	api.Test_threeNumberSum()
 }
 
 func startChatRoom() {
