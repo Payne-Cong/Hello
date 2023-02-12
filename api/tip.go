@@ -148,3 +148,114 @@ func Test_threeNumberSum() {
 		fmt.Println()
 	}
 }
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
+	var head *ListNode
+	head = &ListNode{}
+	tmp := head
+	for list1 != nil && list2 != nil {
+		if list1.Val <= list2.Val {
+			tmp.Next = list1
+			list1 = list1.Next
+		} else {
+			tmp.Next = list2
+			list2 = list2.Next
+		}
+		tmp = tmp.Next
+	}
+
+	// 遍历完成
+	if list1 == nil {
+		tmp.Next = list2
+	} else {
+		tmp.Next = list1
+	}
+
+	return head.Next
+}
+
+func mergeTwoLists2(list1 *ListNode, list2 *ListNode) *ListNode {
+	if list1 == nil {
+		return list2
+	}
+	if list2 == nil {
+		return list1
+	}
+
+	if list1.Val <= list2.Val {
+		list1.Next = mergeTwoLists2(list1.Next, list2)
+		return list1
+	}
+
+	list2.Next = mergeTwoLists2(list1, list2.Next)
+	return list2
+}
+
+// (0,0) (2,1)  (0,4)  (0,4)  (3,4)
+// 0<2 DD 0<1 R !
+// 2>0 UU 1<4 RRR !
+// 0<3 DDD 0=0 !
+// 0<3 DDD 4=4 !
+// https://leetcode.cn/problems/alphabet-board-path/description/
+func AlphabetBoardPath(target string) string {
+	var stringAp string
+	a, b := 0, 0
+	for _, s := range target {
+		x := int(s-97) / 5
+		y := int(s-97) % 5
+		m, n := a-x, b-y
+
+		i := x
+		j := y
+
+		if m > 0 {
+			for m > 0 {
+				stringAp = stringAp + "U"
+				m--
+			}
+		} else if m < 0 {
+			if x == 5 {
+				// 起始点不管在哪 向'z'移动, 都会进行最后一步D, 在此之前先移动到边界
+				for m < -1 {
+					stringAp = stringAp + "D"
+					m++
+				}
+			} else {
+				for m < 0 {
+					stringAp = stringAp + "D"
+					m++
+				}
+			}
+		}
+
+		if n > 0 {
+			for n > 0 {
+				stringAp = stringAp + "L"
+				n--
+			}
+		} else if n < 0 {
+			for n < 0 {
+				stringAp = stringAp + "R"
+				n++
+			}
+		}
+
+		// 向'z'移动
+		if x == 5 && m != 0 && n == 0 {
+			stringAp = stringAp + "D"
+		}
+
+		stringAp = stringAp + "!"
+
+		a = i
+		b = j
+
+	}
+
+	return stringAp
+}
