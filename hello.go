@@ -13,6 +13,8 @@ func main() {
 	api.TestSwitch()
 	api.Test_printChanNums()
 	api.Test_threeNumberSum()
+
+	//api.TestMySQLAPI()
 }
 
 func startChatRoom() {
